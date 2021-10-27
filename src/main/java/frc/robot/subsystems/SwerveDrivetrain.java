@@ -18,7 +18,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+
 public class SwerveDrivetrain extends SubsystemBase {
   public static double deadBand(double input) {
 		double output;
@@ -72,6 +75,14 @@ public class SwerveDrivetrain extends SubsystemBase {
   public static AHRS gyro = new AHRS(SPI.Port.kMXP);
 
 
+
+
+  
+	public double getGyroHeading() {
+		return gyro.getAngle() % 360;
+	}
+
+
   private SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
     new Translation2d(
       Units.inchesToMeters(10),
@@ -90,6 +101,8 @@ public class SwerveDrivetrain extends SubsystemBase {
       Units.inchesToMeters(-10)
     )
   );
+  SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(kinematics,
+  getGyroHeading(), new Pose2d(5.0, 13.5, new Rotation2d()));
 
  
 
