@@ -75,6 +75,13 @@ public class SwerveDrivetrain extends SubsystemBase {
   public static AHRS gyro = new AHRS(SPI.Port.kMXP);
 
 
+  //creating objects for swerve
+
+  private static SwerveDrivetrain m_instance;
+
+
+
+
 
 
   
@@ -83,7 +90,7 @@ public class SwerveDrivetrain extends SubsystemBase {
 	}
 
 
-  private SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
+  private SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(
     new Translation2d(
       Units.inchesToMeters(10),
       Units.inchesToMeters(10)
@@ -102,7 +109,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     )
   );
 
-
+//SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(m_kinematics, gyro.getAngle(), new Pose2d(5.0,13.5, new Rotation2d()));
  
 
   private SwerveModuleMK3[] modules = new SwerveModuleMK3[] {
@@ -135,7 +142,7 @@ public class SwerveDrivetrain extends SubsystemBase {
     }
 
     SwerveModuleState[] states =
-      kinematics.toSwerveModuleStates(
+      m_kinematics.toSwerveModuleStates(
         fieldRelative
           ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Rotation2d.fromDegrees(-gyro.getAngle()))
           : new ChassisSpeeds(xSpeed, ySpeed, rot));

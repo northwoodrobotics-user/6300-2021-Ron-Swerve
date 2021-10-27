@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.*;
+import frc.robot.commands.buttons.*;
 
 
 /**
@@ -17,7 +18,8 @@ import frc.robot.subsystems.*;
  */
 public class Robot extends TimedRobot {
 
-  private RonMK1 mRon;
+  private RonMK1 m_Ron;
+  private Intake m_Intake;
   private RobotContainer robotContainer;
 
   public static RobotContainer m_RobotContainer;
@@ -32,7 +34,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();
-    mRon = RonMK1.getInstance();
+    m_Ron = RonMK1.getInstance();
+    m_Intake = Intake.getInstance();
     m_RobotContainer = RobotContainer.getInstance();
 
   }
@@ -82,11 +85,15 @@ public class Robot extends TimedRobot {
     double IntakePercent = 0.0;
     if(m_RobotContainer.getRonState()){
       RonPercent = 1.0;
+      //IntakePercent = 1.0;
     }
 
     if(m_RobotContainer.getIntakeState()){
-      IntakePercent = 1.0;
+      IntakePercent = -1.0;
     }
+    m_Ron.FireRon(RonPercent);
+    m_Intake.RunIntake(IntakePercent);
+
 
 
 

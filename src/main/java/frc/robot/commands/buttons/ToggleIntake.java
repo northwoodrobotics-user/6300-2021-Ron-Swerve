@@ -4,6 +4,7 @@ public class ToggleIntake {
     private double m_percent;
     public ToggleIntake(double percent){
         super();
+        
 
 
         m_percent = percent;

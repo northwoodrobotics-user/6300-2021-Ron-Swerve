@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.commands.SwerveDriveCommand;
+import frc.robot.subsystems.RonMK1;
+import frc.robot.commands.buttons.ToggleRon;
 
 import frc.robot.subsystems.SwerveDrivetrain;
 
@@ -27,10 +29,16 @@ public class RobotContainer {
 
   
 
+  public static RonMK1 ronMK1;
+
   private final SwerveDrivetrain drivetrain = new SwerveDrivetrain();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
+    ronMK1 = new RonMK1();
+
+    
 
 
     drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, controller));
@@ -40,7 +48,7 @@ public class RobotContainer {
   }
   public static RobotContainer getInstance(){
     if (m_instance == null){
-      m_instance = new RobotContainer();
+      m_instance = new RobotContainer(); 
     }
     return m_instance;
   }
