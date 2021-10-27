@@ -101,8 +101,7 @@ public class SwerveDrivetrain extends SubsystemBase {
       Units.inchesToMeters(-10)
     )
   );
-  SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(kinematics,
-  getGyroHeading(), new Pose2d(5.0, 13.5, new Rotation2d()));
+
 
  
 
