@@ -20,6 +20,7 @@ public class Robot extends TimedRobot {
 
   private RonMK1 m_Ron;
   private Intake m_Intake;
+  private Limelight m_Limelight;
   private RobotContainer robotContainer;
 
   public static RobotContainer m_RobotContainer;
@@ -36,6 +37,7 @@ public class Robot extends TimedRobot {
     robotContainer = new RobotContainer();
     m_Ron = RonMK1.getInstance();
     m_Intake = Intake.getInstance();
+    m_Limelight = Limelight.getInstance();
     m_RobotContainer = RobotContainer.getInstance();
 
   }
@@ -65,7 +67,9 @@ public class Robot extends TimedRobot {
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
-  public void autonomousInit() {}
+  public void autonomousInit() {
+
+  }
 
   /** This function is called periodically during autonomous. */
   @Override
@@ -84,15 +88,21 @@ public class Robot extends TimedRobot {
     double RonPercent = 0.0;
     double IntakePercent = 0.0;
     if(m_RobotContainer.getRonState()){
-      RonPercent = 1.0;
-      //IntakePercent = 1.0;
+      RonPercent = 3.0;
+      IntakePercent = -0.4;
     }
 
     if(m_RobotContainer.getIntakeState()){
       IntakePercent = -1.0;
+
+    }
+    if (m_RobotContainer.reverseIntakeState()){
+      IntakePercent = 1.0;
     }
     m_Ron.FireRon(RonPercent);
     m_Intake.RunIntake(IntakePercent);
+
+
 
 
 

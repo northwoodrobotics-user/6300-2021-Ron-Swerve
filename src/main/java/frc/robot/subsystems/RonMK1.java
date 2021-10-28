@@ -15,6 +15,7 @@ public class RonMK1 extends SubsystemBase{
     TalonSRX _talon2 = new TalonSRX(21);
 
 
+
     public RonMK1(){
         super();
         setBrakeMode(true);
@@ -32,18 +33,24 @@ public class RonMK1 extends SubsystemBase{
         return m_instance;
     }
 
+
+
+
     public void FireRon(double percent){
         _talon.set(ControlMode.PercentOutput, percent);
         _talon2.set(ControlMode.PercentOutput,-percent);
+      
     }
     public void setBrakeMode(boolean mode){
         if (mode == true){
             _talon.setNeutralMode(NeutralMode.Brake);
             _talon2.setNeutralMode(NeutralMode.Brake);
+           
         }
         else{
             _talon.setNeutralMode(NeutralMode.Coast);
             _talon2.setNeutralMode(NeutralMode.Coast);
+        ;
 
         }
     }

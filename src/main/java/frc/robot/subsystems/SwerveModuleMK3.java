@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Units;
 
 public class SwerveModuleMK3 {
+  
 
   // TODO: Tune these PID values for your robot
   private static final double kDriveP = 15.0;
@@ -39,6 +40,8 @@ public class SwerveModuleMK3 {
     this.angleMotor = angleMotor;
     this.canCoder = canCoder;
     this.offset = offset;
+
+
 
     TalonFXConfiguration angleTalonFXConfiguration = new TalonFXConfiguration();
 
@@ -67,6 +70,9 @@ public class SwerveModuleMK3 {
     CANCoderConfiguration canCoderConfiguration = new CANCoderConfiguration();
     canCoderConfiguration.magnetOffsetDegrees = offset.getDegrees();
     canCoder.configAllSettings(canCoderConfiguration);
+  }
+  public SwerveModuleState getState() {
+    return new SwerveModuleState(driveMotor.getSelectedSensorVelocity(), new Rotation2d(canCoder.getAbsolutePosition()));
   }
 
 

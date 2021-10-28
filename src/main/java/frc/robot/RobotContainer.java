@@ -36,6 +36,8 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
+    
+
     ronMK1 = new RonMK1();
 
     
@@ -58,6 +60,9 @@ public class RobotContainer {
 
   public boolean getIntakeState(){
     return gunnerControls.getBButton();
+  }
+  public boolean reverseIntakeState(){
+    return gunnerControls.getXButton();
   }
 
 
