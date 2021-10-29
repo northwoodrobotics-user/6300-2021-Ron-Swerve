@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.*;
 import frc.robot.commands.buttons.*;
+import frc.robot.commands.*;
 
 
 /**
@@ -42,7 +43,7 @@ public class Robot extends TimedRobot {
     m_Intake = Intake.getInstance();
     m_Limelight = Limelight.getInstance();
     m_RobotContainer = RobotContainer.getInstance();
-    m_SwerveDrivetrain = SwerveDrivetrain.getInstance();
+   // m_SwerveDrivetrain = SwerveDrivetrain.getInstance();
     m_Climber = Climber.getInstance();
 
   }
@@ -107,16 +108,17 @@ public class Robot extends TimedRobot {
     if (m_RobotContainer.reverseIntakeState()){
       IntakePercent = 1.0;
     }
-    if(m_RobotContainer.getCharlieState()){
-      m_SwerveDrivetrain.CharlieMode(true);
-
-      if(m_RobotContainer.getClimberState()){
-        ClimberPercent = 1;
-      }
-      if(m_RobotContainer.getReverseClimberState()){
-        ClimberPercent = -1;
-      }
+  //  if(m_RobotContainer.getCharlieState()){
+    //  m_SwerveDrivetrain.CharlieMode(true);
+    if(m_RobotContainer.getClimberState()){
+      ClimberPercent = 1;
     }
+    if(m_RobotContainer.getReverseClimberState()){
+      ClimberPercent = -1;
+    
+      
+    }
+    
     m_Ron.FireRon(RonPercent);
     m_Intake.RunIntake(IntakePercent);
     m_Climber.RunClimber(ClimberPercent);

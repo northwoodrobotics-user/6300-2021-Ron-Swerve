@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.robot.commands.SwerveDriveCommand;
+//import frc.robot.commands.SwerveDriveCommand;
 import frc.robot.subsystems.RonMK1;
 import frc.robot.commands.buttons.ToggleRon;
 
@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.subsystems.SwerveDrivetrain;
 import frc.robot.commands.SwerveAndLimelight;
-
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -31,7 +31,19 @@ import frc.robot.commands.SwerveAndLimelight;
 public class RobotContainer {
   private static RobotContainer m_instance = null;
 
-  private final XboxController controller = new XboxController(0);
+  private final XboxController operatorController = new XboxController(1);
+  private final JoystickButton operatorBButton = new JoystickButton(operatorController, XboxController.Button.kB.value);
+  private final JoystickButton operatorAButton = new JoystickButton(operatorController, XboxController.Button.kA.value);
+  private final JoystickButton operatorXButton = new JoystickButton(operatorController, XboxController.Button.kX.value);
+  private final JoystickButton operatorLeftBumper = new JoystickButton(operatorController, XboxController.Button.kBumperLeft.value);
+  private final JoystickButton operatorStartButton = new JoystickButton(operatorController, XboxController.Button.kStart.value);
+  private final JoystickButton operatorSelectButton = new JoystickButton(operatorController, XboxController.Button.kBack.value);
+  private final JoystickButton operatorRightBumper = new JoystickButton(operatorController, XboxController.Button.kBumperRight.value);
+ 
+  //Driver Controller and Buttons
+  private final XboxController driverController = new XboxController(0);
+  private final JoystickButton driverStartButton = new JoystickButton(driverController, XboxController.Button.kStart.value);
+  private final JoystickButton driverAbutton = new JoystickButton(driverController, XboxController.Button.kA.value);
   private final XboxController gunnerControls = new XboxController(1);
   private final SwerveDrivetrain drivetrain = new SwerveDrivetrain();
 
@@ -77,7 +89,7 @@ public class RobotContainer {
   }
 
   public boolean getCharlieState(){
-    return controller.getRawButton(8);
+    return driverController.getRawButton(8);
   }
   public boolean getClimberState(){
     return gunnerControls.getBackButton();
