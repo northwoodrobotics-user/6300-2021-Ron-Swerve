@@ -8,11 +8,19 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.commands.SwerveDriveCommand;
 import frc.robot.subsystems.RonMK1;
 import frc.robot.commands.buttons.ToggleRon;
 
+import java.util.List;
+import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
+
+import edu.wpi.first.wpilibj2.command.Command;
+
 import frc.robot.subsystems.SwerveDrivetrain;
+import frc.robot.commands.SwerveAndLimelight;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -25,25 +33,28 @@ public class RobotContainer {
 
   private final XboxController controller = new XboxController(0);
   private final XboxController gunnerControls = new XboxController(1);
+  private final SwerveDrivetrain drivetrain = new SwerveDrivetrain();
 
-
-  
-
+  //private final SwerveAndLimelight swerveAndLimelight = new SwerveAndLimelight(Limedrivetrain);
+  private final SwerveAndLimelight swerveAndLimelight = new SwerveAndLimelight(drivetrain);  
   public static RonMK1 ronMK1;
 
-  private final SwerveDrivetrain drivetrain = new SwerveDrivetrain();
+ 
+
+  
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-    
+    drivetrain.setDefaultCommand(swerveAndLimelight);
 
     ronMK1 = new RonMK1();
 
     
+    //.setDefaultCommand(new SwerveAndLimelight(subsystem));
 
-
-    drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, controller));
+    //limedrivetrain.setDefaultCommand(new SwerveAndLimelight(limedrivetrain, controller));
+    //drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, controller));
 
 
 
@@ -65,9 +76,20 @@ public class RobotContainer {
     return gunnerControls.getXButton();
   }
 
+  public boolean getCharlieState(){
+    return controller.getRawButton(8);
+  }
+  public boolean getClimberState(){
+    return gunnerControls.getBackButton();
+  }
+  public boolean getReverseClimberState(){
+    return gunnerControls.getStartButton();
+  }
+
 
 
 
 }
+
 
 

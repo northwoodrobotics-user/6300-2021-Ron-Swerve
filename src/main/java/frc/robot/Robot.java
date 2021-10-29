@@ -19,9 +19,12 @@ import frc.robot.commands.buttons.*;
 public class Robot extends TimedRobot {
 
   private RonMK1 m_Ron;
+  private Climber m_Climber;
   private Intake m_Intake;
   private Limelight m_Limelight;
   private RobotContainer robotContainer;
+  private SwerveDrivetrain m_SwerveDrivetrain;
+ 
 
   public static RobotContainer m_RobotContainer;
 
@@ -39,6 +42,8 @@ public class Robot extends TimedRobot {
     m_Intake = Intake.getInstance();
     m_Limelight = Limelight.getInstance();
     m_RobotContainer = RobotContainer.getInstance();
+    m_SwerveDrivetrain = SwerveDrivetrain.getInstance();
+    m_Climber = Climber.getInstance();
 
   }
 
@@ -87,9 +92,12 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     double RonPercent = 0.0;
     double IntakePercent = 0.0;
+    double ClimberPercent = 0.0;
+  
+ 
     if(m_RobotContainer.getRonState()){
       RonPercent = 3.0;
-      IntakePercent = -0.4;
+      //IntakePercent = -0.4;
     }
 
     if(m_RobotContainer.getIntakeState()){
@@ -99,8 +107,21 @@ public class Robot extends TimedRobot {
     if (m_RobotContainer.reverseIntakeState()){
       IntakePercent = 1.0;
     }
+    if(m_RobotContainer.getCharlieState()){
+      m_SwerveDrivetrain.CharlieMode(true);
+
+      if(m_RobotContainer.getClimberState()){
+        ClimberPercent = 1;
+      }
+      if(m_RobotContainer.getReverseClimberState()){
+        ClimberPercent = -1;
+      }
+    }
     m_Ron.FireRon(RonPercent);
     m_Intake.RunIntake(IntakePercent);
+    m_Climber.RunClimber(ClimberPercent);
+
+    
 
 
 

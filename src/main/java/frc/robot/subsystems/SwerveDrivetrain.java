@@ -43,7 +43,11 @@ public class SwerveDrivetrain extends SubsystemBase {
 
 		assert (Math.abs(output) <= 1) : "expected to output a smaller number than the 1 of " + 1;
 		return output;
-	}
+  }
+  
+  //creates charlie mode
+private boolean charlieMode = true;
+
 
 
   //these are limits you can change!!!
@@ -83,6 +87,16 @@ public class SwerveDrivetrain extends SubsystemBase {
 
   private static SwerveDrivetrain m_instance;
 
+  private static SwerveDrivetrain m_charlieMode;
+
+
+
+  public static SwerveDrivetrain getInstance(){
+    if (m_instance == null){
+      m_instance = new SwerveDrivetrain();
+    }
+    return m_instance;
+  }
 
 
 
@@ -112,6 +126,17 @@ private final SwerveModuleMK3 m_backRightModuleMK3 =  new SwerveModuleMK3(new Ta
 
 
 
+public void CharlieMode(boolean on){
+  if(on){
+    charlieMode = true;
+  }
+  else {
+    charlieMode = false;
+  }
+}
+public boolean sendCharlieMode(){
+  return charlieMode;
+}
 
   
 	public double getGyroHeading() {
@@ -151,6 +176,11 @@ private final SwerveModuleMK3 m_backRightModuleMK3 =  new SwerveModuleMK3(new Ta
 
   }
 
+  public enum SwerveControlState{
+    OPEN_LOOP,
+    OPEN_Drive
+  }
+
   /**
    * Method to drive the robot using joystick info.
    *
@@ -162,7 +192,15 @@ private final SwerveModuleMK3 m_backRightModuleMK3 =  new SwerveModuleMK3(new Ta
    */
   public void Drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative, boolean calibrateGyro) {
 
-    
+    if(sendCharlieMode()){
+      xSpeed *= 0.65;
+      ySpeed *= 0.65;
+      rot*= 0.4;
+      fieldRelative = true;
+
+    }
+
+
     if(calibrateGyro){
       m_gyro.reset(); //recalibrates gyro offset
     }
@@ -216,6 +254,17 @@ private final SwerveModuleMK3 m_backRightModuleMK3 =  new SwerveModuleMK3(new Ta
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
   }
+//public boolean CharlieMode(){
+  //return charlieMode;
+//}
+//public void setCharlieMode(){
+  //charlieMode = true;
+//}
+
+//public void fullSend(){
+  //charlieMode = false;
+//}
+
 
 
 }
