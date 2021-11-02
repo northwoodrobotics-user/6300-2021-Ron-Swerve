@@ -46,7 +46,7 @@ public class SwerveModule {
   private final TalonFXSensorCollection m_driveMotorSensors;
   private final CANCoder m_twistEncoder;
 
-  private Rotation2d offset;
+  private double offset;
 
   private ShuffleboardTab subsystemShuffleboardTab;
 
@@ -85,7 +85,7 @@ public class SwerveModule {
   public SwerveModule(int driveMotorCanID,
                       int twistMotorCanID,
                       int twistEncoderID,
-                      Rotation2d offset,
+                      double offset,
                       ShuffleboardTab tab,
                       String moduleIdentifier) {
 
@@ -157,14 +157,14 @@ public class SwerveModule {
     TalonFXConfiguration angleTalonFXConfiguration = new TalonFXConfiguration();
 
                         
-    angleTalonFXConfiguration.remoteFilter0.remoteSensorDeviceID = m_twistEncoder.getDeviceID();
-    angleTalonFXConfiguration.remoteFilter0.remoteSensorSource = RemoteSensorSource.CANCoder;
+    //angleTalonFXConfiguration.remoteFilter0.remoteSensorDeviceID = m_twistEncoder.getDeviceID();
+    //angleTalonFXConfiguration.remoteFilter0.remoteSensorSource = RemoteSensorSource.CANCoder;
     
-    angleTalonFXConfiguration.primaryPID.selectedFeedbackSensor = FeedbackDevice.RemoteSensor0;
-    m_twistMotor.configAllSettings(angleTalonFXConfiguration);
+    //angleTalonFXConfiguration.primaryPID.selectedFeedbackSensor = FeedbackDevice.RemoteSensor0;
+    //m_twistMotor.configAllSettings(angleTalonFXConfiguration);
 
     CANCoderConfiguration canCoderConfiguration = new CANCoderConfiguration();
-    canCoderConfiguration.magnetOffsetDegrees =  offset.getDegrees();
+    canCoderConfiguration.magnetOffsetDegrees =  offset;
     m_twistEncoder.configAllSettings(canCoderConfiguration);
 
     // Limit the PID Controller's input range between 0 and 360 and set the input to be continuous.
@@ -194,9 +194,19 @@ public class SwerveModule {
   public void setDesiredState(SwerveModuleState state) {
     // Calculate the drive output from the drive PID controller.
  
-    Rotation2d setpoint = Rotation2d.fromDegrees(m_twistEncoder.getAbsolutePosition());
+    double setpoint, setpoint_scaled;
+    setpoint = (state.angle.getDegrees()) + (this.offset);
 
-    double setpoint_scaled = setpoint.getDegrees();
+    if (setpoint < 0) {
+      setpoint_scaled =  360 - (setpoint * -1);
+    } else if (setpoint > 360) {
+      setpoint_scaled = setpoint - 360;
+    } else {
+      setpoint_scaled = setpoint;
+    }
+    sbSwerveModuleAngleCommand.setDouble(setpoint_scaled);
+
+    
 
     // Our encoders are not aligned such that 0 means "the front of the robot".
     // Because of this, we need to add the offset here
@@ -205,9 +215,8 @@ public class SwerveModule {
     
     double currentAngle = m_twistEncoder.getAbsolutePosition();
     double currentAngle_scaled;
-    double offsetAsDouble = this.offset.getDegrees();
     // display the actual angle of the wheel on shuffleboard.
-    currentAngle -= offsetAsDouble;
+    currentAngle -= this.offset;
     if (currentAngle < 0) {
       currentAngle_scaled =  360 - (currentAngle * -1);
     } else if (currentAngle > 360) {
@@ -220,7 +229,7 @@ public class SwerveModule {
     sbSwerveModuleAngleActual.setDouble(currentAngle_scaled);
 
 
-
+    
     sbSwerveModuleSpeedCommand.setDouble(state.speedMetersPerSecond);
     sbSwerveModuleSpeedActual.setDouble(convertTicksPerTimeUnitToMetersPerSecond(m_driveMotorSensors.getIntegratedSensorVelocity()));
 

@@ -45,10 +45,10 @@ public class RobotContainer {
   private final JoystickButton driverStartButton = new JoystickButton(driverController, XboxController.Button.kStart.value);
   private final JoystickButton driverAbutton = new JoystickButton(driverController, XboxController.Button.kA.value);
   private final XboxController gunnerControls = new XboxController(1);
-  private final SwerveDrivetrain drivetrain = new SwerveDrivetrain();
+  private final SwerveDrivetrain swervedrivetrain = new SwerveDrivetrain();
 
   //private final SwerveAndLimelight swerveAndLimelight = new SwerveAndLimelight(Limedrivetrain);
-  private final SwerveAndLimelight swerveAndLimelight = new SwerveAndLimelight(drivetrain);  
+  private final SwerveAndLimelight swerveAndLimelight = new SwerveAndLimelight(swervedrivetrain);  
   public static RonMK1 ronMK1;
 
  
@@ -58,7 +58,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-    drivetrain.setDefaultCommand(swerveAndLimelight);
+    swervedrivetrain.setDefaultCommand(swerveAndLimelight);
 
     ronMK1 = new RonMK1();
 

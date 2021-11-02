@@ -12,7 +12,7 @@ import frc.robot.subsystems.SwerveDrivetrain;
 
 public class SwerveAndLimelight extends CommandBase {
 
-  SwerveDrivetrain drivetrain;
+  SwerveDrivetrain swervedrivetrain;
   boolean limeLightarmed = false;
 
   XboxController driverController = new XboxController(Constants.DriverControl.driverControllerPort);
@@ -26,7 +26,7 @@ public class SwerveAndLimelight extends CommandBase {
 
   public SwerveAndLimelight(SwerveDrivetrain drivetrain) {
     
-    drivetrain = drivetrain;
+    swervedrivetrain = drivetrain;
     addRequirements(drivetrain);
   }
 
@@ -89,15 +89,15 @@ public class SwerveAndLimelight extends CommandBase {
       
       if (driverController.getXButton())
       {
-        drivetrain.xMode();
+        swervedrivetrain.xMode();
       }
       else if(driverController.getRawAxis(Constants.DriverControl.driverControllerLeftTriggerAxis) > 0.2)
       {
-        drivetrain.CircleDrive(-controllerAssist * 1.5);
+        swervedrivetrain.CircleDrive(-controllerAssist * 1.5);
       }
       else
       {
-        drivetrain.CircleDrive(-rotation - controllerAssist);
+        swervedrivetrain.CircleDrive(-rotation - controllerAssist);
       }
     }
     else
@@ -115,7 +115,7 @@ public class SwerveAndLimelight extends CommandBase {
       // SmartDashboard.putNumber("X Box Rotation", rotation);
 
       //drive normally with joysticks
-      this.drivetrain.drive(directionX, directionY, rotation, false, slowMode, false);
+      this.swervedrivetrain.drive(directionX, directionY, rotation, false, slowMode, false);
     }
   }
 
