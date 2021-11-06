@@ -13,7 +13,7 @@ public final class Constants {
     public static final class DriveSubsystem {
 
         public static final double kSwerveTwistPIDTolerance = 10;
-        public static final double kSwerveTwistPID_P = 0.05;
+        public static final double kSwerveTwistPID_P = 1.0;
         public static final double kSwerveTwistPID_I = 0;
         public static final double kSwerveTwistPID_D = 0;
 

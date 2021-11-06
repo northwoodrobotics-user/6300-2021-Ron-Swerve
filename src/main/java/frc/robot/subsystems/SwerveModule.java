@@ -157,14 +157,15 @@ public class SwerveModule {
     TalonFXConfiguration angleTalonFXConfiguration = new TalonFXConfiguration();
 
                         
-    angleTalonFXConfiguration.remoteFilter0.remoteSensorDeviceID = m_twistEncoder.getDeviceID();
-    angleTalonFXConfiguration.remoteFilter0.remoteSensorSource = RemoteSensorSource.CANCoder;
+    //angleTalonFXConfiguration.remoteFilter0.remoteSensorDeviceID = m_twistEncoder.getDeviceID();
+    //angleTalonFXConfiguration.remoteFilter0.remoteSensorSource = RemoteSensorSource.CANCoder;
     
-    angleTalonFXConfiguration.primaryPID.selectedFeedbackSensor = FeedbackDevice.RemoteSensor0;
-    m_twistMotor.configAllSettings(angleTalonFXConfiguration);
+    //angleTalonFXConfiguration.primaryPID.selectedFeedbackSensor = FeedbackDevice.RemoteSensor0;
+    //m_twistMotor.configAllSettings(angleTalonFXConfiguration);
 
     CANCoderConfiguration canCoderConfiguration = new CANCoderConfiguration();
     canCoderConfiguration.magnetOffsetDegrees =  this.offset;
+    canCoderConfiguration.magnetOffsetDegrees =  offset;
     m_twistEncoder.configAllSettings(canCoderConfiguration);
 
     // Limit the PID Controller's input range between 0 and 360 and set the input to be continuous.
@@ -201,6 +202,18 @@ public class SwerveModule {
     //Rotation2d setpoint = Rotation2d.fromDegrees(m_twistEncoder.getAbsolutePosition());
 
     //double setpoint_scaled = setpoint.getDegrees();
+    setpoint = (state.angle.getDegrees()) + (this.offset);
+
+    if (setpoint < 0) {
+      setpoint_scaled =  360 - (setpoint * -1);
+    } else if (setpoint > 360) {
+      setpoint_scaled = setpoint - 360;
+    } else {
+      setpoint_scaled = setpoint;
+    }
+    sbSwerveModuleAngleCommand.setDouble(setpoint_scaled);
+
+  
 
     // Our encoders are not aligned such that 0 means "the front of the robot".
     // Because of this, we need to add the offset here
@@ -216,7 +229,9 @@ public class SwerveModule {
     
     double currentAngle = m_twistEncoder.getAbsolutePosition();
     double currentAngle_scaled;
+
     //double offsetAsDouble = this.offset.getDegrees();
+
     // display the actual angle of the wheel on shuffleboard.
     currentAngle -= this.offset;
     if (currentAngle < 0) {
@@ -231,7 +246,7 @@ public class SwerveModule {
     sbSwerveModuleAngleActual.setDouble(currentAngle_scaled);
 
 
-
+    
     sbSwerveModuleSpeedCommand.setDouble(state.speedMetersPerSecond);
     sbSwerveModuleSpeedActual.setDouble(convertTicksPerTimeUnitToMetersPerSecond(m_driveMotorSensors.getIntegratedSensorVelocity()));
 
