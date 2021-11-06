@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 //import frc.robot.commands.SwerveDriveCommand;
 import frc.robot.subsystems.RonMK1;
-import frc.robot.commands.buttons.ToggleRon;
+//import frc.robot.commands.buttons.ToggleRon;
+import frc.robot.commands.shooterCommands.FireOnTrigger;
+
 
 import java.util.List;
 import edu.wpi.first.wpilibj.controller.PIDController;

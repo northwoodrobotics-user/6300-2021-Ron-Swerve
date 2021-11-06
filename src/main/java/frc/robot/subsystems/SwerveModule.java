@@ -46,7 +46,7 @@ public class SwerveModule {
   private final TalonFXSensorCollection m_driveMotorSensors;
   private final CANCoder m_twistEncoder;
 
-  private Rotation2d offset;
+  private double offset;
 
   private ShuffleboardTab subsystemShuffleboardTab;
 
@@ -85,7 +85,7 @@ public class SwerveModule {
   public SwerveModule(int driveMotorCanID,
                       int twistMotorCanID,
                       int twistEncoderID,
-                      Rotation2d offset,
+                      double offset,
                       ShuffleboardTab tab,
                       String moduleIdentifier) {
 
@@ -164,7 +164,7 @@ public class SwerveModule {
     m_twistMotor.configAllSettings(angleTalonFXConfiguration);
 
     CANCoderConfiguration canCoderConfiguration = new CANCoderConfiguration();
-    canCoderConfiguration.magnetOffsetDegrees =  offset.getDegrees();
+    canCoderConfiguration.magnetOffsetDegrees =  this.offset;
     m_twistEncoder.configAllSettings(canCoderConfiguration);
 
     // Limit the PID Controller's input range between 0 and 360 and set the input to be continuous.
@@ -193,21 +193,32 @@ public class SwerveModule {
    */
   public void setDesiredState(SwerveModuleState state) {
     // Calculate the drive output from the drive PID controller.
- 
-    Rotation2d setpoint = Rotation2d.fromDegrees(m_twistEncoder.getAbsolutePosition());
 
-    double setpoint_scaled = setpoint.getDegrees();
+    double setpoint, setpoint_scaled;
+
+    setpoint = state.angle.getDegrees() + this.offset;
+ 
+    //Rotation2d setpoint = Rotation2d.fromDegrees(m_twistEncoder.getAbsolutePosition());
+
+    //double setpoint_scaled = setpoint.getDegrees();
 
     // Our encoders are not aligned such that 0 means "the front of the robot".
     // Because of this, we need to add the offset here
+    if (setpoint < 0) {
+      setpoint_scaled =  360 - (setpoint * -1);
+    } else if (setpoint > 360) {
+      setpoint_scaled = setpoint - 360;
+    } else {
+      setpoint_scaled = setpoint;
+    }
   
     // Because we added an offset, we now have to normalize the angle to 0-360
     
     double currentAngle = m_twistEncoder.getAbsolutePosition();
     double currentAngle_scaled;
-    double offsetAsDouble = this.offset.getDegrees();
+    //double offsetAsDouble = this.offset.getDegrees();
     // display the actual angle of the wheel on shuffleboard.
-    currentAngle -= offsetAsDouble;
+    currentAngle -= this.offset;
     if (currentAngle < 0) {
       currentAngle_scaled =  360 - (currentAngle * -1);
     } else if (currentAngle > 360) {
