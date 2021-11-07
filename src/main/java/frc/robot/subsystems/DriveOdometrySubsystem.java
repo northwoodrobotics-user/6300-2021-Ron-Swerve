@@ -192,6 +192,17 @@ public class DriveOdometrySubsystem extends SubsystemBase {
    *                      field.
    */
   @SuppressWarnings("ParameterName")
+
+  /*public void drive(ChassisSpeeds chassisSpeeds){
+    SwerveModuleState[] swerveModuleStates = Constants.DriveSubsystem.kDriveKinematics
+    .toSwerveModuleStates(fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(forwardInput, sidewaysInput, rot, getAngle())
+    : new ChassisSpeeds(forwardInput, sidewaysInput, rot));
+  }
+  */
+
+  public void drive(ChassisSpeeds chassisSpeeds){}
+
+
   public void drive(double forwardInput, double sidewaysInput, double rot, boolean fieldRelative) {
 
     sbFowardInput.setDouble(forwardInput);
@@ -213,9 +224,18 @@ public class DriveOdometrySubsystem extends SubsystemBase {
     m_frontRight.setDesiredState(swerveModuleStates[1]);
     m_rearLeft.setDesiredState(swerveModuleStates[2]);
     m_rearRight.setDesiredState(swerveModuleStates[3]);
+
+
+    if (fieldRelative) {
+
+      drive(ChassisSpeeds.fromFieldRelativeSpeeds(forwardInput, sidewaysInput, Math.toRadians(rot), getAngle()));
+  } else {
+      drive(new ChassisSpeeds(forwardInput, sidewaysInput, Math.toRadians(rot)));
+  }
     
   }
 
+  
   /**
    * Sets the swerve ModuleStates.
    *
@@ -228,6 +248,8 @@ public class DriveOdometrySubsystem extends SubsystemBase {
     m_rearLeft.setDesiredState(desiredStates[2]);
     m_rearRight.setDesiredState(desiredStates[3]);
   }
+
+
 
   /**
    * Resets the drive encoders to currently read a position of 0.
@@ -264,6 +286,9 @@ public class DriveOdometrySubsystem extends SubsystemBase {
   public double getTurnRate() {
     return m_gyro.getRate() * (Constants.DriveSubsystem.kGyroReversed ? -1.0 : 1.0);
   }
+  public Pose2d getPoseMeters() {
+    return m_odometry.getPoseMeters();
+}
 
 
 //   public void disableFrontRightWheelRotation(){

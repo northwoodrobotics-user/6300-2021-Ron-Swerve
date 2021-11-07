@@ -9,6 +9,23 @@ import edu.wpi.first.wpilibj.util.Units;
 
 public final class Constants {
 
+       // Path Following
+       public static final double DRIVE_POS_ERROR_CONTROLLER_P = 12; // 10
+       public static final double DRIVE_POS_ERROR_CONTROLLER_I = 0;
+       public static final double DRIVE_POS_ERROR_CONTROLLER_D = 0.05;
+       public static final double DRIVE_HEADING_ERROR_CONTROLLER_P = 0; // 1.05
+       public static final double DRIVE_HEADING_ERROR_CONTROLLER_I = 0;
+       public static final double DRIVE_HEADING_ERROR_CONTROLLER_D = 0; // 0.02
+       public static final double DRIVE_ROTATION_CONTROLLER_P = 10;// 9
+       public static final double DRIVE_ROTATION_CONTROLLER_I = 0;
+       public static final double DRIVE_ROTATION_CONTROLLER_D = 0;
+       public static final double DRIVE_TARGETING_CONTROLLER_P = 13;// 9
+       public static final double DRIVE_TARGETING_CONTROLLER_I = 0;
+       public static final double DRIVE_TARGETING_CONTROLLER_D = 0.5;
+       public static final double DRIVE_ROTATION_MIN_VELOCITY = 25;
+       public static final double DRIVE_TARGETING_I_ZONE = 2;
+
+
     
     public static final class DriveSubsystem {
 
@@ -26,11 +43,15 @@ public final class Constants {
         public static final double kMaxTwistAngularVelocity = 360; // deg/s
         public static final double kMaxTwistAngularAcceleration = 360; // deg/s^2
 
+        
+
         public static final double kGearRatioMotorToWheel = 6.64; // 6.64 motor rotations = 1 wheel rotation
         public static final double kWheelDiameter = Units.inchesToMeters(1.5); // in meters
         public static final double kMotorEncoderTicksPerRev = 4096;
         public static final double kMotorEncoderTimeUnit = 0.100; // 100ms
 
+            
+     
         //kPXController
 
         public static final boolean kGyroReversed = true;
@@ -88,5 +109,7 @@ public final class Constants {
         public static final int operatorControllerLeftStickYAxis = 1;
         public static final int operatorControllerRightStickYAxis = 5;
     }
+
+
 
 }
