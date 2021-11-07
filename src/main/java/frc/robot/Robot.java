@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.*;
 //import frc.robot.commands.buttons.*;
 import frc.robot.commands.*;
+import edu.wpi.first.wpilibj2.command.Command;
 
 
 /**
@@ -28,6 +29,7 @@ public class Robot extends TimedRobot {
  
 
   public static RobotContainer m_RobotContainer;
+  private Command autoCommand;
 
   
   /**
@@ -74,6 +76,11 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    autoCommand = robotContainer.getAutonomousCommand();
+
+    if (autoCommand != null) {
+        autoCommand.schedule();
+    }
 
   }
 

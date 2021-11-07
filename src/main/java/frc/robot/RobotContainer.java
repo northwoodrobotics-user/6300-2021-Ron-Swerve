@@ -20,9 +20,14 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.SwerveDrivetrain;
-import frc.robot.commands.SwerveAndLimelight;
+import frc.robot.commands.*;
+import frc.robot.commands.auton.sequentialCommands.*;
+
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -53,6 +58,8 @@ public class RobotContainer {
   private final SwerveAndLimelight swerveAndLimelight = new SwerveAndLimelight(swervedrivetrain);  
   public static RonMK1 ronMK1;
 
+  SendableChooser<CommandBase> autoChooser = new SendableChooser<>();
+
  
 
   
@@ -69,10 +76,17 @@ public class RobotContainer {
 
     //limedrivetrain.setDefaultCommand(new SwerveAndLimelight(limedrivetrain, controller));
     //drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, controller));
+    autoChooser.setDefaultOption("No Auto",null);
+    autoChooser.addOption("Squarepath", new JustSquare());
+    SmartDashboard.putData("Auto Mode", autoChooser);
 
 
 
   }
+
+  public Command getAutonomousCommand() {
+    return autoChooser.getSelected();
+}
   public static RobotContainer getInstance(){
     if (m_instance == null){
       m_instance = new RobotContainer(); 
