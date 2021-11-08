@@ -78,6 +78,7 @@ public class RobotContainer {
     //drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, controller));
     autoChooser.setDefaultOption("No Auto",null);
     autoChooser.addOption("Squarepath", new JustSquare());
+    autoChooser.addOption("SpinySquarePath", new SpinySquare());
     SmartDashboard.putData("Auto Mode", autoChooser);
 
 
