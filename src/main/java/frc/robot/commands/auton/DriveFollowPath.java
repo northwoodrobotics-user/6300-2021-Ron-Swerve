@@ -21,11 +21,13 @@ import lib.swerve.SwervePath;
 import lib.swerve.SwervePathController;
 import frc.robot.subsystems.DriveOdometrySubsystem;
 import frc.robot.subsystems.SwerveDrivetrain;
+import frc.robot.subsystems.Intake;
 
 
 public class DriveFollowPath extends CommandBase {
     Timer timer;
     SwervePath path;
+    Intake intake;
     SwervePathController pathController;
     double lastTime;
     boolean ignoreHeading;
@@ -79,6 +81,7 @@ public class DriveFollowPath extends CommandBase {
 
         ChassisSpeeds targetSpeeds = pathController.calculate(driveOdometrySubsystem.getPoseMeters(), desiredState, time - lastTime, timer.hasElapsed(0.1));
         driveOdometrySubsystem.drive(targetSpeeds);
+
 
         lastTime = time;
 
