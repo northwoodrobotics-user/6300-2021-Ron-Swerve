@@ -21,13 +21,13 @@ import lib.swerve.SwervePath;
 import lib.swerve.SwervePathController;
 import frc.robot.subsystems.DriveOdometrySubsystem;
 import frc.robot.subsystems.SwerveDrivetrain;
-import frc.robot.subsystems.Intake;
+//import frc.robot.subsystems.Intake;
 
 
 public class DriveFollowPath extends CommandBase {
     Timer timer;
     SwervePath path;
-    Intake intake;
+   
     SwervePathController pathController;
     double lastTime;
     boolean ignoreHeading;
