@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 //import frc.robot.commands.SwerveDriveCommand;
-import frc.robot.subsystems.RonMK1;
+//import frc.robot.subsystems.RonMK1;
 //import frc.robot.commands.buttons.ToggleRon;
-import frc.robot.commands.shooterCommands.FireOnTrigger;
+//import frc.robot.commands.shooterCommands.FireOnTrigger;
 
 
 import java.util.List;
@@ -56,7 +56,7 @@ public class RobotContainer {
 
   //private final SwerveAndLimelight swerveAndLimelight = new SwerveAndLimelight(Limedrivetrain);
   private final SwerveAndLimelight swerveAndLimelight = new SwerveAndLimelight(swervedrivetrain);  
-  public static RonMK1 ronMK1;
+  //public static RonMK1 ronMK1;
 
   SendableChooser<CommandBase> autoChooser = new SendableChooser<>();
 
@@ -69,7 +69,7 @@ public class RobotContainer {
 
     swervedrivetrain.setDefaultCommand(swerveAndLimelight);
 
-    ronMK1 = new RonMK1();
+    //ronMK1 = new RonMK1();
 
     
     //.setDefaultCommand(new SwerveAndLimelight(subsystem));

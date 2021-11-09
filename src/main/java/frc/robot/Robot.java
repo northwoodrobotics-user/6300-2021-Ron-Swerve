@@ -20,9 +20,9 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class Robot extends TimedRobot {
 
-  private RonMK1 m_Ron;
-  private Climber m_Climber;
-  private Intake m_Intake;
+  //private RonMK1 m_Ron;
+  //private Climber m_Climber;
+  //private Intake m_Intake;
   private Limelight m_Limelight;
   private RobotContainer robotContainer;
   private SwerveDrivetrain m_SwerveDrivetrain;
@@ -41,12 +41,12 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();
-    m_Ron = RonMK1.getInstance();
-    m_Intake = Intake.getInstance();
+   // m_Ron = RonMK1.getInstance();
+   // m_Intake = Intake.getInstance();
     m_Limelight = Limelight.getInstance();
     m_RobotContainer = RobotContainer.getInstance();
    // m_SwerveDrivetrain = SwerveDrivetrain.getInstance();
-    m_Climber = Climber.getInstance();
+   // m_Climber = Climber.getInstance();
 
   }
 
@@ -126,9 +126,9 @@ public class Robot extends TimedRobot {
       
     }
     
-    m_Ron.FireRon(RonPercent);
-    m_Intake.RunIntake(IntakePercent);
-    m_Climber.RunClimber(ClimberPercent);
+    //m_Ron.FireRon(RonPercent);
+    //m_Intake.RunIntake(IntakePercent);
+    //m_Climber.RunClimber(ClimberPercent);
 
     
 
