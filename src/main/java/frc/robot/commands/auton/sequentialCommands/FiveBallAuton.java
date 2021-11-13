@@ -9,10 +9,10 @@ import frc.robot.subsystems.Intake;
 
 public class FiveBallAuton extends SequentialCommandGroup{
 
-    public FiveBallAuton(RonMK1 shooter, Intake feeder, SwerveDrivetrain drivetrain){
+    public FiveBallAuton(){
         super(
             new DriveAndEat("3trenchBall", 1), 
-            new AutoShoot(shooter, feeder, drivetrain)
+            new AutoShoot()
         );
     }
     

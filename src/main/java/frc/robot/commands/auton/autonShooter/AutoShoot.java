@@ -15,10 +15,8 @@ public class AutoShoot extends CommandBase{
     Timer timer = new Timer();
 
 
-    public AutoShoot(RonMK1 shooter,Intake feeder, SwerveDrivetrain drivetrain){
-        ronMK1 = shooter;
-        intake = feeder;
-        swerveDrivetrain = drivetrain;
+    public AutoShoot(){
+
         addRequirements(ronMK1, intake, swerveDrivetrain);
 
     }
