@@ -1,6 +1,7 @@
 package frc.robot.swerve;
 
 import edu.wpi.first.wpilibj.GyroBase;
+import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Units;
 
@@ -11,7 +12,7 @@ public class SwerveDrive {
     private SwerveWheel leftBackWheel;
     private SwerveWheel rightBackWheel;
 
-    private GyroBase gyro;
+    private AHRS gyro;
 
     private double wheelbase = Units.inchesToMeters(28);
     private double trackwidth = Units.inchesToMeters(28);
@@ -22,7 +23,7 @@ public class SwerveDrive {
     private double slowModeSpeedMultiplier = 0.45;
 
     public SwerveDrive(SwerveWheel rightFront, SwerveWheel leftFront, SwerveWheel leftBack, SwerveWheel rightBack,
-            GyroBase gyro) {
+            AHRS gyro) {
         this.rightFrontWheel = rightFront;
         this.leftFrontWheel = leftFront;
         this.leftBackWheel = leftBack;
